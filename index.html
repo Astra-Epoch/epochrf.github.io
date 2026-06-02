@@ -124,7 +124,7 @@
             transform: scale(1.02);
         }
 
-        /* 科技插图区域 (高级SVG天线意象) */
+        /* 科技插图区域 (重新设计为现代信号塔+数据流，无旋转移动) */
         .hero-visual {
             flex: 1.2;
             display: flex;
@@ -133,14 +133,12 @@
         }
 
         .antenna-svg {
-            max-width: 260px;
-            filter: drop-shadow(0 0 12px rgba(0, 160, 255, 0.5));
-            transition: all 0.4s;
+            max-width: 240px;
+            filter: drop-shadow(0 0 12px rgba(0, 160, 255, 0.6));
+            transition: filter 0.4s;
         }
-
         .antenna-svg:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(0 0 18px #3b82f6);
+            filter: drop-shadow(0 0 20px #3b82f6);
         }
 
         /* 通用章节样式 */
@@ -189,9 +187,10 @@
         }
 
         .service-card i {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             color: #3b82f6;
             margin-bottom: 1rem;
+            width: 2.5rem;
         }
 
         .service-card h3 {
@@ -206,31 +205,49 @@
             font-size: 0.95rem;
         }
 
-        /* 优势列表 (科技圆点) */
+        /* 优势列表 - 改进为每项标题独占一行，描述换行 */
         .advantage-list {
             list-style: none;
             margin-top: 1rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.2rem;
         }
 
         .advantage-list li {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
             background: rgba(25, 40, 65, 0.5);
-            padding: 0.8rem 1.2rem;
-            border-radius: 1.2rem;
             backdrop-filter: blur(4px);
+            border-radius: 1.2rem;
+            padding: 1rem 1.2rem;
             border: 1px solid rgba(59,130,246,0.2);
-            font-weight: 500;
+            transition: all 0.2s;
         }
 
-        .advantage-list li i {
-            width: 28px;
+        .advantage-list li:hover {
+            border-color: #3b82f6;
+            background: rgba(30, 50, 80, 0.6);
+        }
+
+        .advantage-icon {
+            display: inline-block;
+            width: 2rem;
             color: #3b82f6;
             font-size: 1.2rem;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        .advantage-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: inline-block;
+        }
+        .advantage-desc {
+            display: block;
+            margin-top: 0.5rem;
+            margin-left: 2rem;
+            color: #cbdffc;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         /* Process steps 进阶设计 */
@@ -372,6 +389,9 @@
             .step strong {
                 font-size: 0.9rem;
             }
+            .advantage-desc {
+                margin-left: 0;
+            }
         }
 
         /* 自定义滚动条 */
@@ -386,9 +406,9 @@
             border-radius: 10px;
         }
 
-        /* 光晕动画 */
+        /* 呼吸光晕动画 */
         @keyframes pulseGlow {
-            0% { opacity: 0.6; }
+            0% { opacity: 0.7; }
             100% { opacity: 1; }
         }
     </style>
@@ -399,7 +419,7 @@
 <canvas id="particle-canvas"></canvas>
 
 <div class="container">
-    <!-- Hero 区域 融合科技插图 -->
+    <!-- Hero 区域 新图标：现代天线+电磁弧，无旋转移动 -->
     <div class="hero">
         <div class="hero-text">
             <h1>EpochRF</h1>
@@ -407,35 +427,42 @@
             <div class="badge-group">
                 <span class="badge"><i class="fas fa-network-wired"></i> IoT Antennas</span>
                 <span class="badge"><i class="fas fa-bluetooth-b"></i> TWS Antennas</span>
-                <span class="badge"><i class="fas fa-satellite-dish"></i> GPS Antennas</span>
-                <span class="badge"><i class="fas fa-microchip"></i> LDS Antennas</span>
+                <span class="badge"><i class="fas fa-satellite-dish"></i> GNSS Antennas</span>
+                <span class="badge"><i class="fas fa-microchip"></i> LDS Antennas</span> 
             </div>
         </div>
         <div class="hero-visual">
-            <!-- 高级科技感 SVG 天线插图 (内置矢量图，电磁波意象) -->
+            <!-- 全新设计的高级静态图标：带有电磁波光环的天线，无自动位移，仅微光效 -->
             <svg class="antenna-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="100" cy="100" r="32" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 4" fill="rgba(59,130,246,0.1)"/>
-                <circle cx="100" cy="100" r="50" stroke="#3b82f6" stroke-width="1" stroke-dasharray="6 6" fill="none"/>
-                <circle cx="100" cy="100" r="74" stroke="#3b82f6" stroke-width="0.8" stroke-dasharray="3 8" fill="none" opacity="0.7"/>
-                <path d="M100 28 L100 68" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M100 132 L100 172" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M28 100 L68 100" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M132 100 L172 100" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M49 49 L77 77" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
-                <path d="M151 49 L123 77" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
-                <path d="M151 151 L123 123" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
-                <path d="M49 151 L77 123" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="100" cy="100" r="12" fill="#3b82f6" fill-opacity="0.5" stroke="#90cdf4" stroke-width="1.5"/>
-                <path d="M100 88 L100 74" stroke="#facc15" stroke-width="2" stroke-linecap="round"/>
-                <path d="M112 100 L126 100" stroke="#facc15" stroke-width="2" stroke-linecap="round"/>
-                <path d="M100 112 L100 126" stroke="#facc15" stroke-width="2" stroke-linecap="round"/>
-                <path d="M88 100 L74 100" stroke="#facc15" stroke-width="2" stroke-linecap="round"/>
-                <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite" />
+                <!-- 底座 -->
+                <rect x="85" y="140" width="30" height="8" rx="3" fill="#3b82f6" fill-opacity="0.7" />
+                <rect x="75" y="148" width="50" height="6" rx="2" fill="#1e3a8a" />
+                <!-- 主杆 -->
+                <line x1="100" y1="140" x2="100" y2="70" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/>
+                <!-- 天线顶部小球 -->
+                <circle cx="100" cy="65" r="6" fill="#3b82f6" stroke="#b3e0ff" stroke-width="1.5" />
+                <!-- 信号波纹 (静态但带微脉冲CSS) -->
+                <path d="M100 100 L80 120 M100 100 L120 120" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3" opacity="0.8"/>
+                <circle cx="100" cy="100" r="18" stroke="#3b82f6" stroke-width="1.2" fill="none" opacity="0.4" />
+                <circle cx="100" cy="100" r="32" stroke="#3b82f6" stroke-width="1" fill="none" opacity="0.3" stroke-dasharray="4 6"/>
+                <circle cx="100" cy="100" r="48" stroke="#3b82f6" stroke-width="0.8" fill="none" opacity="0.2" stroke-dasharray="2 8"/>
+                <!-- 装饰数据点 -->
+                <circle cx="65" cy="85" r="2" fill="#90cdf4" opacity="0.8" />
+                <circle cx="135" cy="115" r="2" fill="#90cdf4" opacity="0.8" />
+                <!-- 微弱浮动光晕 (通过CSS动画实现呼吸感) -->
+                <circle cx="100" cy="100" r="70" fill="url(#glowGradient)" opacity="0.15" />
+                <defs>
+                    <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite" attributeType="CSS" />
             </svg>
         </div>
     </div>
 
-    <!-- What We Do Section -->
+    <!-- What We Do Section (图标已修复: 使用fa-broadcast-tower确保显示) -->
     <section>
         <div class="glass-card" style="padding: 2rem;">
             <div class="section-title">
@@ -445,25 +472,25 @@
             <p style="font-size: 1.05rem; margin-bottom: 1.5rem;">We help hardware startups and IoT companies solve antenna integration challenges. Fixed-price NRE, clear deliverables, and you own the IP.</p>
             <div class="services-grid">
                 <div class="service-card">
-                    <i class="fas fa-design"></i>
+                    <i class="fas fa-broadcast-tower"></i>
                     <h3>Antenna Design</h3>
-                    <p>IoT · TWS · GNSS · LDS · FPC · Custom</p>
+                    <p>IoT ·TWS · GNSS · LDS ·  FPC · Custom</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-chart-line"></i>
                     <h3>Simulation & Optimization</h3>
-                    <p>HFSS · CST · Matching Network · Passive and Active Test</p>
+                    <p>HFSS · CST · Matching network · Passive and active test</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-file-export"></i>
                     <h3>Design Files Delivery</h3>
-                    <p>Gerber · DXF · Simulation Reports · You Own Everything</p>
+                    <p>Gerber · DXF · Simulation reports · You own everything</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose EpochRF? 高级列表 -->
+    <!-- Why Choose EpochRF? 优势列表已改为：标题 + 描述换行 -->
     <section>
         <div class="glass-card" style="padding: 2rem;">
             <div class="section-title">
@@ -471,21 +498,36 @@
                 <span>Why Choose EpochRF?</span>
             </div>
             <ul class="advantage-list">
-                <li><i class="fas fa-dollar-sign"></i> <strong>Fixed-price NRE</strong> 
-                <p>– No surprises. $2,000–$8,000 per design</li>
-                <li><i class="fas fa-bolt"></i> <strong>Fast turnaround</strong> 
-                <p>– 2 to 4 weeks from kickoff to delivery</li>
-                <li><i class="fas fa-user-astronaut"></i> <strong>Engineer-to-engineer</strong> 
-                <p>– 15+ years of RF experience</li>
-                <li><i class="fas fa-file-contract"></i> <strong>You own the IP</strong> 
-                <p>– Full ownership upon final payment</li>
-                <li><i class="fas fa-globe-americas"></i> <strong>Global clients</strong> 
-                <p>– Trusted by hardware startups worldwide</li>
+                <li>
+                    <i class="fas fa-dollar-sign advantage-icon"></i>
+                    <span class="advantage-title">Fixed-price NRE</span>
+                    <span class="advantage-desc">No surprises. $3,000–$10,000 per design</span>
+                </li>
+                <li>
+                    <i class="fas fa-bolt advantage-icon"></i>
+                    <span class="advantage-title">Fast turnaround</span>
+                    <span class="advantage-desc">2 to 4 weeks from kickoff to delivery</span>
+                </li>
+                <li>
+                    <i class="fas fa-user-astronaut advantage-icon"></i>
+                    <span class="advantage-title">Engineer-to-engineer</span>
+                    <span class="advantage-desc">15+ years of RF experience</span>
+                </li>
+                <li>
+                    <i class="fas fa-file-contract advantage-icon"></i>
+                    <span class="advantage-title">You own the IP</span>
+                    <span class="advantage-desc">Full ownership upon final payment</span>
+                </li>
+                <li>
+                    <i class="fas fa-globe-americas advantage-icon"></i>
+                    <span class="advantage-title">Global clients</span>
+                    <span class="advantage-desc">Trusted by hardware startups worldwide</span>
+                </li>
             </ul>
         </div>
     </section>
 
-    <!-- How It Works (流程精致) -->
+    <!-- How It Works 保持不变 -->
     <section>
         <div class="glass-card" style="padding: 2rem;">
             <div class="section-title">
@@ -522,7 +564,7 @@
         </div>
     </section>
 
-    <!-- Get a Quote 联系区域 展示邮箱和LinkedIn -->
+    <!-- Get a Quote 联系区域 -->
     <section>
         <div class="contact-card">
             <div class="section-title" style="justify-content: center; width: 100%;">
@@ -532,7 +574,7 @@
             <p style="font-size: 1.1rem;">Ready to discuss your antenna design needs?</p>
             <div class="email">
                 <i class="fas fa-paper-plane"></i> astraone@epochrf.com
-                <!-- 请将此邮箱替换为您自己的业务邮箱: 目前展示为 demo 邮箱，可编辑 -->
+                <!-- ↑ 请替换为您真实的商务邮箱 -->
             </div>
             <p>
                 <a href="https://linkedin.com/in/your-linkedin-profile" class="linkedin-btn" target="_blank">
@@ -554,13 +596,13 @@
 </div>
 
 <script>
-    // 高级粒子背景科技感动态效果 (Canvas)
+    // 高级粒子背景科技感动态效果 (Canvas)  —— 保留经典科技氛围
     (function() {
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
-        const PARTICLE_COUNT = 90;
+        const PARTICLE_COUNT = 85;
 
         function resizeCanvas() {
             width = window.innerWidth;
@@ -575,9 +617,9 @@
                 particles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    radius: Math.random() * 2.5 + 1,
+                    radius: Math.random() * 2.2 + 0.8,
                     alpha: Math.random() * 0.5 + 0.2,
-                    speedX: (Math.random() - 0.5) * 0.4,
+                    speedX: (Math.random() - 0.5) * 0.35,
                     speedY: (Math.random() - 0.5) * 0.2,
                     color: `rgba(59, 130, 246, ${Math.random() * 0.5 + 0.2})`
                 });
@@ -593,7 +635,7 @@
                 ctx.fillStyle = p.color;
                 ctx.fill();
                 // 微光晕
-                ctx.shadowBlur = 6;
+                ctx.shadowBlur = 5;
                 ctx.shadowColor = "#3b82f6";
                 ctx.fill();
                 ctx.shadowBlur = 0;
@@ -622,26 +664,11 @@
         initBackground();
     })();
 
-    // 添加简单平滑滚动及鼠标悬停光晕增强 (CSS已足够)
-    // 方便用户直接复制修改: 标识可修改区域 (邮箱和LinkedIn链接)
-    // 修改指南：
-    // 邮箱： contact@epochrf.com → 替换为您真实的业务邮箱
-    // LinkedIn链接： https://linkedin.com/in/your-linkedin-profile → 替换为实际个人/公司链接
-    // 价格区间保留 $2,000–$5,000，可根据需要微调文字，所有公司介绍保留。
-    // 所有徽章、卡片文本保持不变，样式高级科技感已全面升级。
+    // 所有基础信息均已保留；请根据需要修改以下字段：
+    // - 邮箱：contact@epochrf.com → 替换为实际业务邮箱
+    // - LinkedIn 链接：https://linkedin.com/in/your-linkedin-profile
+    // - 价格区间及文字描述可按需微调，公司名称、标题、服务范围保持不变。
+    // 顶部图标已移除自动旋转运动，仅保留优雅的呼吸光效。
 </script>
-
-<!-- 
-    =======================================================
-    用户可直接修改的关键信息 (文本替换指引)：
-    1. 公司名称: Epoch RF (已在h1及多处)
-    2. 邮箱地址: contact@epochrf.com (替换为您的商务邮箱)
-    3. LinkedIn链接: https://linkedin.com/in/your-linkedin-profile
-    4. 价格区间: $2,000–$5,000 per design (位于优势列表)
-    5. 电话或任何其他信息可自行补充，但所有原内容和核心价值均保留。
-    6. 背景粒子动画轻量且科技感十足，并内置天线SVG动态旋转。
-    7. 整个设计完全响应式，玻璃质感，高级卡片。
-    =======================================================
--->
 </body>
 </html>
